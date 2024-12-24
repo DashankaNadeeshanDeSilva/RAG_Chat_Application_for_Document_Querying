@@ -1,10 +1,10 @@
-from document_parsing import Document_Parsing
-from clean_text import clean_text
-from semantic_text_chunking import semantic_text_chunking
-# from backend.document_preprocessing.add_metadata import generate_metadata
-from add_metadata import add_metadata
+# from document_parsing import Document_Parsing
+from backend.app.document_preprocessing.get_content import get_content
+from backend.app.document_preprocessing.clean_text import clean_text
+from backend.app.document_preprocessing.semantic_text_chunking import semantic_text_chunking
+from backend.app.document_preprocessing.add_metadata import add_metadata
 
-def preprocess_document(file_path: str): # -> List[dict]
+def preprocess_document(document: bytes) -> List[dict]:
     """
     intergrate components of text perprocessing
     args:
@@ -15,14 +15,15 @@ def preprocess_document(file_path: str): # -> List[dict]
     """
 
     # step 1: document parsing
-    document_parser = Document_Parsing()
-    raw_text = document_parser(file_path)
+    #document_parser = Document_Parsing()
+    #raw_text = document_parser(file_path)
+    raw_text = get_content(document)
 
     # step 2: clean text
-    clean_text = clean_text(raw_text)
+    cleaned_text = clean_text(raw_text)
 
     # step 3: semantic chunking
-    text_chunks = semantic_text_chunking(clean_text)
+    text_chunks = semantic_text_chunking(cleaned_text)
 
     # step 4: metadata generation and integrate
     preprocessed_text = add_metadata(text_chunks)
