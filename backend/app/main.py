@@ -14,7 +14,10 @@ app.add_middleware(
 
 @app.on_event("startup")
 def startup_event():
-    create_or_clear_db(collection_name="knowledge_base")
+    try:
+        create_or_clear_db(collection_name="knowledge_base")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.post("/upload/")
