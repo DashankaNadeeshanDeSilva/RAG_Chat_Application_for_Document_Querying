@@ -11,7 +11,7 @@ class Knowledge_Base():
         collection = self.client.get_collection(collection_name)
         return collection # ChromaDB collection object.
     
-    def create_collection(self, collection_name="knowledge_base"):
+    def get_or_create_collection(self, collection_name="knowledge_base"):
         collection = self.client.get_or_create_collection(
              name=collection_name, 
              embedding_function=self.embedding_func)
@@ -33,13 +33,13 @@ class Knowledge_Base():
             metadatas=doc_kws
         )
 
-    def query(self, collection, query, n_results=5):
+    def query_collection(self, collection, query, n_results=5):
         results_raw = collection.query(query_texts=[query], n_results=n_results)
         results = [str(result) for result in results_raw["documents"][0]]
         return results
     
-    #def clear_vector_db(self, clear: bool):
-         # clear all docs in the current colelction when clear var is True(bool)
+    def clear_vector_db(self, collection):
+        collection.delete(ids=None) 
 
 
 if __name__ == "__main__":

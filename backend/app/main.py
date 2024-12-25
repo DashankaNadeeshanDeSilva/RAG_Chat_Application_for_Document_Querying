@@ -1,16 +1,21 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException, Form
 from fastapi.middleware.cors import CORSMiddleware
-from backend.app.services.data_processing.process_documents import process_documents
+from backend.app.services.rag import process_documents, generate_rag_response, create_or_clear_db
 
 app = FastAPI()
 
 # Enable CORS for frontend-backend communication
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Update to the domain of your frontend in production
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.on_event("startup")
+def startup_event():
+    create_or_clear_db(collection_name="knowledge_base")
+
 
 @app.post("/upload/")
 async def upload_document(file: UploadFile = File(...)):
@@ -19,27 +24,18 @@ async def upload_document(file: UploadFile = File(...)):
     try:
         # Get document content
         content = await file.read()
-        # process the document
+        # process the document and store in vector db
         process_documents(content)
-        # try to return a sucess code to check if document
-        # is processed successfully (preprocessed and added to vector db)
-
         return {"message": "File processed successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
 @app.post("/chat/")
 async def chat_query(query: str = Form(...)):
-
     try:
-        # Preprocess the query
-        cleaned_query = query.strip()
-        # query the vector database
-        retrived_context = query_knowledge_base(cleaned_query)
-        # generate final response
-        response = generate_response(query, retrived_context)
-
+        # generate response for query
+        response = generate_rag_response(query)
         return {"response": response}
-
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
