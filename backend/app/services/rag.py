@@ -1,6 +1,7 @@
 from backend.app.services.knowledge_base import Knowledge_Base
 from backend.app.services.document_preprocessing.preprocessing_pipeline import preprocess_document
 from backend.app.services.llm_service import LLM
+from typing import List
 
 ### Core functions of RAG ###
 
@@ -15,23 +16,22 @@ def add_keywords(query: str) -> str:
 
 
 # Preprocess and store document in vecotr db
-def process_documents(document: bytes):
+def process_documents(file_path: str):
     # prepocess document
-    preprocessed_text = preprocess_document(document) # List[dict]
+    preprocessed_text = preprocess_document(file_path) # List[dict]
     # Adding the document to knowledgebase
     knowledge_base = Knowledge_Base()
     knowledge_base_collection = knowledge_base.get_collection()
     knowledge_base.add_to_collection(knowledge_base_collection, preprocessed_text)
 
 
+
 # Query for context given query
 def query_knowledge_base(query: str) -> List[str]:
     # preprocess the query
     query = query.strip()
-
     # add additional keywords to query
     query_kw = add_keywords(query)
-
     # query from the knowledgebase
     knowledge_base = Knowledge_Base()
     knowledge_base_collection = knowledge_base.get_collection()
@@ -42,7 +42,7 @@ def query_knowledge_base(query: str) -> List[str]:
 # Generate rag output response
 def generate_rag_response(query: str) -> str:
     context = query_knowledge_base(query)
-    prompt = f"Given the query and context, generate a natural language response:\nQuery: {query}\nContext: {context}\n"
+    prompt = f"Given the query and context, generate a consise, clear and organized natural language response:\nQuery: {query}\nContext: {context}\n"
     llm = LLM()
     rag_response = llm.invoke_llm(prompt)
     return rag_response

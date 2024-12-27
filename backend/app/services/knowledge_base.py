@@ -1,8 +1,9 @@
 import chromadb
 from chromadb.utils import embedding_functions
+from typing import List
 
 class Knowledge_Base():
-    def __init__(self, db_path="backend/app/knowledge_base/vector_db/"):
+    def __init__(self, db_path="backend/app/vector_db/"):
         self.db_path = db_path
         self.client = chromadb.PersistentClient(path=self.db_path)
         self.embedding_func = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
@@ -20,8 +21,11 @@ class Knowledge_Base():
     def add_to_collection(self, collection, document):
         '''documnets format (List[dict]), e.g. [{"chunk":"foo","topic":"bar", "keywords": ["kw1,"kw2"]}
         '''
-        if not isinstance(document, List[dict]):
-                raise ValueError("Documents must be a list of dictionaries.")
+               
+        #if not isinstance(document, List[dict]):
+        #        raise ValueError("Documents must be a list of dictionaries.")
+        if not isinstance(document, list) or not all(isinstance(item, dict) for item in document):
+            raise ValueError("Documents must be a list of dictionaries.")
 
         doc_chunks = [doc_chunk["chunk"] for doc_chunk in document] # document
         doc_topics = [doc_topic["topic"] for doc_topic in document] # ids
@@ -29,29 +33,17 @@ class Knowledge_Base():
 
         collection.add(
             documents=doc_chunks,
-            ids=doc_topics,
-            metadatas=doc_kws
+            ids=doc_topics
         )
+        print("SUCCESSFULLY ADDED TO VECTOR DB !")
 
     def query_collection(self, collection, query, n_results=5):
         results_raw = collection.query(query_texts=[query], n_results=n_results)
         results = [str(result) for result in results_raw["documents"][0]]
         return results
     
-    def clear_vector_db(self, collection):
-        collection.delete(ids=None) 
+    def clear_collection(self, collection):
+        all_docs = collection.get()
+        collection.delete(ids=all_docs['ids']) 
 
-
-if __name__ == "__main__":
-    # init knowledge base
-    knowledge_base = Knowledge_Base()
-    # create collection
-    knowledge_base_collection = knowledge_base.create_collection()
-    # get collection
-    knowledge_base_collection = knowledge_base.get_collection()
-    # query collection
-    test_query = "I bought a TV last week and now it is not working. Since it is in warranty period, I would like to get it repaired or replace for a new one."
-    context = knowledge_base.query(collection=knowledge_base_collection, query=test_query)
-    print(context)
-     
      

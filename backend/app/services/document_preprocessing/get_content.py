@@ -1,10 +1,11 @@
 from charset_normalizer import detect
+from chardet import detect
 
 def get_content(content: bytes) -> str:
     # detect encoding
     detection = detect(content)
     # Default to UTF-8 if unknown
-    encoding = detection.get('encoding', 'utf-8')
+    encoding = detection.get('encoding') or 'utf-8'
 
     # decode using the detected encoding
     try:

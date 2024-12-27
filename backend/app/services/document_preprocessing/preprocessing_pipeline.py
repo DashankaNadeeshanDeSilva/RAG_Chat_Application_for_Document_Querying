@@ -1,10 +1,12 @@
 # from document_parsing import Document_Parsing
-from backend.app.document_preprocessing.get_content import get_content
-from backend.app.document_preprocessing.clean_text import clean_text
-from backend.app.document_preprocessing.semantic_text_chunking import semantic_text_chunking
-from backend.app.document_preprocessing.add_metadata import add_metadata
+from backend.app.services.document_preprocessing.get_content import get_content
+from backend.app.services.document_preprocessing.clean_text import clean_text
+from backend.app.services.document_preprocessing.semantic_text_chunking import semantic_text_chunking
+from backend.app.services.document_preprocessing.add_metadata import add_metadata
+from backend.app.services.document_preprocessing.document_parsing import Document_Parsing
+from typing import List
 
-def preprocess_document(document: bytes) -> List[dict]:
+def preprocess_document(document_path: str) -> List[dict]:
     """
     intergrate components of text perprocessing
     args:
@@ -15,9 +17,9 @@ def preprocess_document(document: bytes) -> List[dict]:
     """
 
     # step 1: document parsing
-    #document_parser = Document_Parsing()
-    #raw_text = document_parser(file_path)
-    raw_text = get_content(document)
+    document_parser = Document_Parsing()
+    raw_text = document_parser(document_path)
+    #raw_text = get_content(document)
 
     # step 2: clean text
     cleaned_text = clean_text(raw_text)
