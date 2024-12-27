@@ -21,9 +21,6 @@ class Knowledge_Base():
     def add_to_collection(self, collection, document):
         '''documnets format (List[dict]), e.g. [{"chunk":"foo","topic":"bar", "keywords": ["kw1,"kw2"]}
         '''
-               
-        #if not isinstance(document, List[dict]):
-        #        raise ValueError("Documents must be a list of dictionaries.")
         if not isinstance(document, list) or not all(isinstance(item, dict) for item in document):
             raise ValueError("Documents must be a list of dictionaries.")
 
