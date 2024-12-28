@@ -1,22 +1,23 @@
-This project is an interactive RAG application chatbot where users can upload documents, and query from them to get context and extract knowledge.
 
+## RAG Chat Application for Document Knowledge Querying
+#### An interactive RAG application chatbot where users can upload documents, and query from them to get context and extract knowledge.
 
-This RAG chatbot application has a front end and a back end. The front end has an interactive chat interface where users can chat and upload documents to the knowledge base. The back end handles all the data processing, including document indexing in vector db, querying the database, and generating context-aware reply responses using LLM.
+This  RAG chatbot application has a front end and a back end. The front end has an interactive chat interface where users can chat and upload documents to the knowledge base. The back end handles all the data processing, including document indexing in vector db, querying the database, and generating context-aware reply responses using LLM.
 
-The RAG Chat application architetcure is depicted as follows:
+### The RAG Chat application architecture is depicted as follows:
 
 ![RAG_architecture.jpg](images/RAG_architecture.jpg)
 
-Here is the workflow of the RAG chatbot:
+### Here is the workflow of the RAG chatbot:
 
 1. Input documents and preprocessing: 
 - This step includes steps parsing documents, cleaning them, and chunking or splitting documents into smaller, manageable chunks.
 - The chunks should be meaningful, not splitting across important boundaries.
-- Then metadata addition such as titles and tags to those chucnks to provide context.
+- Then metadata addition such as titles and tags to those chunks to provide context.
 
 2. Creating a Knowledge base:
-- Use a pre-trained text embedding model (open source) to convert each chunk in to embeddings.
-- The store these embeddings with their corresponding metadata and original text in vector database (Chromadb)
+- Use a pre-trained text embedding model (open source) to convert each chunk into embeddings.
+- The store these embeddings with their corresponding metadata and original text in a vector database (Chromadb)
 
 3. Querying the Knowledge Base:
 - Input Query: A user submits a natural language query that needs context or answers in the chatbot
