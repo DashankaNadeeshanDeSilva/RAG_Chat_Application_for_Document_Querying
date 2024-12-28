@@ -4,11 +4,11 @@
 
 This  RAG chatbot application has a front end and a back end. The front end has an interactive chat interface where users can chat and upload documents to the knowledge base. The back end handles all the data processing, including document indexing in vector db, querying the database, and generating context-aware reply responses using LLM.
 
-### The RAG Chat application architecture is depicted as follows:
+### The RAG chat application architecture is depicted as follows:
 
 ![RAG_architecture.jpg](images/RAG_architecture.jpg)
 
-### Here is the workflow of the RAG chatbot:
+### RAG chat application workflow:
 
 1. Input documents and preprocessing: 
 - This step includes steps parsing documents, cleaning them, and chunking or splitting documents into smaller, manageable chunks.
@@ -37,5 +37,6 @@ Combine Context: The retrieved document chunks (context) are combined with the u
 - The generated natural language response is sent to the user as a reply in the chatbot.
 
 ### Technologies Used
-
+TODO
 ### How to Use
+TODO
