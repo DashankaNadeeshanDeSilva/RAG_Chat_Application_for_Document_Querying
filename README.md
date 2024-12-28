@@ -36,4 +36,6 @@ Combine Context: The retrieved document chunks (context) are combined with the u
 6. Reply to the user
 - The generated natural language response is sent to the user as a reply in the chatbot.
 
+### Technologies Used
 
+### How to Use
