@@ -1,7 +1,9 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException, Form
 from fastapi.middleware.cors import CORSMiddleware
 from backend.app.services.rag import process_documents, generate_rag_response, create_or_clear_db
+from backend.app.services.chat_histroy import update_chat_history
 import os
+from uuid import uuid4
 
 
 app = FastAPI()
@@ -15,6 +17,8 @@ app.add_middleware(
 )
 
 UPLOAD_DIR = "./uploads"
+chat_histories = {}  # Example: {user_id: [{'role': 'user', 'content': '...'}, {'role': 'bot', 'content': '...'}]}
+
 
 @app.on_event("startup")
 def startup_event():
@@ -40,21 +44,37 @@ async def upload_document(file: UploadFile = File(...)):
 
         process_documents(file_path)
 
-        '''# Get document content
-        content = await file.read()
-        # process the document and store in vector db
-        process_documents(content)'''
-
         return {"message": "File processed successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.post("/chat/")
-async def chat_query(query: str = Form(...)):
+async def chat_query(query: str = Form(...), user_id: str = Form(...)):
     try:
+        # Initialize user chat history if it doesn't exist
+        if user_id not in chat_histories:
+            chat_histories[user_id] = []
+
         # generate response for query
-        response = generate_rag_response(query)
+        response = generate_rag_response(query=query, chat_history=chat_histories[user_id])
+
+        # Update chat history  for user and bot after generating the response
+        update_chat_history(
+            chat_histories=chat_histories, 
+            user_id=user_id, 
+            user_content=query,
+            bot_content=response
+        )
+
         return {"response": response}
+    
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+
+@app.get("/start_session/")
+def start_session():
+    # Generates and returns a unique session_id.
+    session_id = str(uuid4())
+    return {"session_id": session_id}
