@@ -4,7 +4,7 @@
 
 This  RAG chatbot application has a front end and a back end. The front end has an interactive chat interface where users can chat and upload documents to the knowledge base. The back end handles all the data processing, including document indexing in vector db, querying the database, and generating context-aware reply responses using LLM.
 
-### The RAG chat application architecture is depicted as follows:
+### The RAG chat application architecture.
 
 ![RAG_architecture.jpg](images/RAG_architecture.jpg)
 
