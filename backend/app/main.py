@@ -52,6 +52,8 @@ async def upload_document(file: UploadFile = File(...)):
 @app.post("/chat/")
 async def chat_query(query: str = Form(...), user_id: str = Form(...)):
     try:
+        print(f"Query: {query}, User ID: {user_id}")
+
         # Initialize user chat history if it doesn't exist
         if user_id not in chat_histories:
             chat_histories[user_id] = []

@@ -40,10 +40,10 @@ def query_knowledge_base(query: str) -> List[str]:
 
 
 # Generate rag output response
-def generate_rag_response(query: str) -> str:
+def generate_rag_response(query: str, chat_history: str) -> str:
     context = query_knowledge_base(query)
-    prompt = f"Given the query and context, generate a consise, clear and organized natural language response:\nQuery: {query}\nContext: {context}.\n" 
-    # Use follwoing chat histroy to memorize the past conversation history: \nchat histoy: {chat_history}"
+    prompt = f"""Given the query and context, generate a consise, clear and organized natural language response:\nQuery: {query}\nContext: {context}.\n 
+     Use follwoing chat histroy too: \nchat histoy: {chat_history}"""
     llm = LLM()
     rag_response = llm.invoke_llm(prompt)
     return rag_response

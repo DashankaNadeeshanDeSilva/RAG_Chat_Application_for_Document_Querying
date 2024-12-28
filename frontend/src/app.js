@@ -8,32 +8,30 @@ const chatBox = document.getElementById("chatBox");
 const backendUrl = "http://127.0.0.1:8000"; // FastAPI backend URL
 let session_id = null; // Session ID initialized on app load
 
-// Initialize session by fetching session_id
 async function initializeSession() {
     try {
         const response = await fetch(`${backendUrl}/start_session/`);
         const result = await response.json();
-        if (response.ok && result.session_id) {
-            session_id = result.session_id; // Store the session_id
-            console.log("Session initialized with ID:", session_id);
+        console.log(result);
+
+        if (result.session_id) {
+            session_id = result.session_id; // Store session_id for later use
+            console.log("Session ID initialized:", session_id);
         } else {
             console.error("Failed to initialize session. No session_id received.");
+            alert("Failed to initialize session. Please try reloading the page.");
         }
     } catch (error) {
         console.error("Error initializing session:", error);
+        alert("Error initializing session. Please check the backend or reload the page.");
     }
 }
 
-// Call initializeSession on page load
+// Call initializeSession when the page loads
 window.onload = initializeSession;
 
 // Handle File Upload
 uploadButton.addEventListener("click", async () => {
-    if (!session_id) {
-        alert("Session not initialized. Please refresh the page.");
-        return;
-    }
-
     const file = fileInput.files[0];
     if (!file) {
         uploadStatus.textContent = "Please select a file to upload.";
@@ -46,7 +44,6 @@ uploadButton.addEventListener("click", async () => {
     try {
         const response = await fetch(`${backendUrl}/upload/`, {
             method: "POST",
-            headers: { "session_id": session_id }, // Pass session_id in headers if needed
             body: formData,
         });
         const result = await response.json();
@@ -63,7 +60,7 @@ uploadButton.addEventListener("click", async () => {
 
 // Handle Chat Queries
 sendButton.addEventListener("click", async () => {
-    const query = chatInput.value;
+    const query = chatInput.value.trim();
 
     if (!query) {
         alert("Please enter a query.");
@@ -76,18 +73,23 @@ sendButton.addEventListener("click", async () => {
     }
 
     try {
+        const formData = new URLSearchParams(); // Properly encode the form data
+        formData.append("query", query);
+        formData.append("user_id", session_id);
+
         const response = await fetch(`${backendUrl}/chat/`, {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams({ session_id, query }),
+            body: formData,
         });
+
         const result = await response.json();
         if (response.ok) {
             const chatResponse = document.createElement("p");
             chatResponse.textContent = `Bot: ${result.response}`;
             chatBox.appendChild(chatResponse);
         } else {
-            alert(result.detail);
+            alert(result.detail || "Failed to process query.");
         }
     } catch (error) {
         alert("An error occurred while processing your query.");
