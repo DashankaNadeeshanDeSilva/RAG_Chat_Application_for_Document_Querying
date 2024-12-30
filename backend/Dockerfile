@@ -7,17 +7,16 @@ ENV PYTHONUNBUFFERED=1
 # Prevent Python from writing .pyc files
 ENV PYTHONDONTWRITEBYTECODE=1  
 
-
 # Set working dir inside the container
-WORKDIR /RAG_app
+WORKDIR /backend
 
 # install dependencies
-COPY backend/requirements.txt /RAG_app/requirements.txt
-RUN pip install --no-cache-dir -r /RAG_app/requirements.txt
+COPY requirements.txt /backend/requirements.txt
+RUN pip install --no-cache-dir -r /backend/requirements.txt
 
 # Copy backend files to the container working dir
-COPY app /RAG_app/app
-COPY tests /RAG_app/tests
+COPY app /backend/app
+COPY tests /backend/tests
 
 # expose port
 EXPOSE 8000

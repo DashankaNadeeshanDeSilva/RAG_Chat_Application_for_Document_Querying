@@ -13,8 +13,8 @@ services:
     ports:
       - "8000:8000"  # Map backend localhost (host computer) port 8000 to port 8000 in the container (where app is running)
     volumes:
-      - ./backend/app:/RAG_app/app # Mount 'backend/app' dir from the host-machine to /RAG_app/app dir in the container for live updates
-      - ./uploads:/RAG_app/uploads  # Maps root dir 'uploads' folder to 'RAG_app/uploads' inside the container
+      - ./backend/app:/backend/app # Mount 'backend/app' dir from the host-machine to /RAG_app/app dir in the container for live updates
+      - ./uploads:/backend/uploads  # Maps root dir 'uploads' folder to 'RAG_app/uploads' inside the container
     environment:
       - PYTHONUNBUFFERED=1 # Ensures logs are flushed immediately.
       - PYTHONDONTWRITEBYTECODE=1 # Disables the creation of .pyc files to save space.
