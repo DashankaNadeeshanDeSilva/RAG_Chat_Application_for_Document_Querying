@@ -19,8 +19,8 @@ services:
       - PYTHONUNBUFFERED=1 # Ensures logs are flushed immediately.
       - PYTHONDONTWRITEBYTECODE=1 # Disables the creation of .pyc files to save space.
     restart: unless-stopped # Container restarts automatically unless explicitly stopped.
-    depends_on:
-      - frontend  # Ensure backend waits for frontend to start
+    #depends_on:
+    #  - frontend  # Ensure backend waits for frontend to start
   # Frontend service
   frontend:
     build:

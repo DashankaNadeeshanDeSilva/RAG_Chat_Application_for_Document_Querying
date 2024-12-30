@@ -5,8 +5,9 @@ const sendButton = document.getElementById("sendButton");
 const chatInput = document.getElementById("chatInput");
 const chatBox = document.getElementById("chatBox");
 
-const backendUrl = "http://127.0.0.1:8000"; // FastAPI backend URL
+const backendUrl = "http://127.0.0.1:8000"; // FastAPI backend URL // for locally run: "http://127.0.0.1:8000"; for docker run: "http://backend:8000"
 let session_id = null; // Session ID initialized on app load
+
 
 async function initializeSession() {
     try {
@@ -60,6 +61,7 @@ uploadButton.addEventListener("click", async () => {
 
 // Handle Chat Queries
 sendButton.addEventListener("click", async () => {
+    console.log("Backend URL:", backendUrl);
     const query = chatInput.value.trim();
 
     if (!query) {
@@ -69,10 +71,15 @@ sendButton.addEventListener("click", async () => {
 
     if (!session_id) {
         alert("Session not initialized. Please refresh the page.");
+        console.error("Session ID is null.");
         return;
     }
 
     try {
+
+        console.log("Session ID:", session_id);
+        console.log("Making request to /chat/ endpoint with query:", query);
+
         const formData = new URLSearchParams(); // Properly encode the form data
         formData.append("query", query);
         formData.append("user_id", session_id);

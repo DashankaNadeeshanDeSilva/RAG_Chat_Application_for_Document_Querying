@@ -3,7 +3,7 @@ from chromadb.utils import embedding_functions
 from typing import List
 
 class Knowledge_Base():
-    def __init__(self, db_path="backend/app/vector_db/"):
+    def __init__(self, db_path="app/vector_db/"):
         self.db_path = db_path
         self.client = chromadb.PersistentClient(path=self.db_path)
         self.embedding_func = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")

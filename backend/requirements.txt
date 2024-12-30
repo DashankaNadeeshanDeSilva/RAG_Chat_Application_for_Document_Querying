@@ -1,1 +1,15 @@
-numpy
+uvicorn
+fastapi
+requests
+python-dotenv
+chromadb
+bertopic
+keybert
+PyPDF2
+python-docx
+charset-normalizer
+chardet
+spacy
+langchain-experimental
+sentence-transformers
+python-multipart

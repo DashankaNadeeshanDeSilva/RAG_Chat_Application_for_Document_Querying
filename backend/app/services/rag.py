@@ -1,6 +1,6 @@
-from backend.app.services.knowledge_base import Knowledge_Base
-from backend.app.services.document_preprocessing.preprocessing_pipeline import preprocess_document
-from backend.app.services.llm_service import LLM
+from app.services.knowledge_base import Knowledge_Base
+from app.services.document_preprocessing.preprocessing_pipeline import preprocess_document
+from app.services.llm_service import LLM
 from typing import List
 
 ### Core functions of RAG ###

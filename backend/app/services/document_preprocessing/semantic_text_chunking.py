@@ -1,7 +1,6 @@
 import spacy
 import spacy.cli
 from langchain_experimental.text_splitter import SemanticChunker
-from langchain_openai.embeddings import OpenAIEmbeddings
 from typing import List
 from sentence_transformers import SentenceTransformer
 
@@ -40,8 +39,8 @@ def semantic_text_chunking(text: str, max_tokens: int = 100) -> List[str]:
 
     return chunks
 
-'''
-def semantic_text_chunking(text: str) -> List[str]:
+
+def semantic_text_chunking_with_custom_emb(text: str) -> List[str]:
 
     # Initialize custom embeddings
     custom_embeddings = CustomEmbeddings()
@@ -71,4 +70,3 @@ class CustomEmbeddings:
         :return: List of embeddings as vectors.
         """
         return self.embed(texts)
-'''

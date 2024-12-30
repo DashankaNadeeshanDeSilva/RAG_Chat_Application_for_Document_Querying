@@ -13,6 +13,8 @@ WORKDIR /backend
 # install dependencies
 COPY requirements.txt /backend/requirements.txt
 RUN pip install --no-cache-dir -r /backend/requirements.txt
+# Download the SpaCy model
+RUN python -m spacy download en_core_web_sm
 
 # Copy backend files to the container working dir
 COPY app /backend/app

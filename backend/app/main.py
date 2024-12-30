@@ -1,7 +1,7 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException, Form
 from fastapi.middleware.cors import CORSMiddleware
-from backend.app.services.rag import process_documents, generate_rag_response, create_or_clear_db
-from backend.app.services.chat_histroy import update_chat_history
+from app.services.rag import process_documents, generate_rag_response, create_or_clear_db
+from app.services.chat_histroy import update_chat_history
 import os
 from uuid import uuid4
 
@@ -57,7 +57,7 @@ async def chat_query(query: str = Form(...), user_id: str = Form(...)):
         # Initialize user chat history if it doesn't exist
         if user_id not in chat_histories:
             chat_histories[user_id] = []
-
+        
         # generate response for query
         response = generate_rag_response(query=query, chat_history=chat_histories[user_id])
 
@@ -68,9 +68,8 @@ async def chat_query(query: str = Form(...), user_id: str = Form(...)):
             user_content=query,
             bot_content=response
         )
-
         return {"response": response}
-    
+        
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     

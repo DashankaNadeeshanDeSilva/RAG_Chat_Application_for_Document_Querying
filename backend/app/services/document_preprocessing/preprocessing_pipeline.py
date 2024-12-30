@@ -1,9 +1,9 @@
 # from document_parsing import Document_Parsing
-from backend.app.services.document_preprocessing.get_content import get_content
-from backend.app.services.document_preprocessing.clean_text import clean_text
-from backend.app.services.document_preprocessing.semantic_text_chunking import semantic_text_chunking
-from backend.app.services.document_preprocessing.add_metadata import add_metadata
-from backend.app.services.document_preprocessing.document_parsing import Document_Parsing
+from app.services.document_preprocessing.get_content import get_content
+from app.services.document_preprocessing.clean_text import clean_text
+from app.services.document_preprocessing.semantic_text_chunking import semantic_text_chunking
+from app.services.document_preprocessing.add_metadata import add_metadata
+from app.services.document_preprocessing.document_parsing import Document_Parsing
 from typing import List
 
 def preprocess_document(document_path: str) -> List[dict]:
