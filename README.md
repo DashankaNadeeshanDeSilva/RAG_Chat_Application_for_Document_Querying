@@ -2,7 +2,7 @@
 ## RAG Chat Application for Document Knowledge Querying
 #### An interactive RAG application chatbot where users can upload documents, and query from them to get context and extract knowledge.
 
-This RAG Chatbot Application features a user-friendly front end and a Large Language Model (LLM) powered back end. The front end provides an interactive chat interface, allowing users to engage in real-time conversations and upload documents to enrich the knowledge base. The back end powers the application by handling essential data processing tasks, including document indexing in a vector database, querying the database for relevant information, and generating context-aware responses using a LLM.
+This RAG Chatbot Application features a user-friendly front end and a Large Language Model (LLM) powered back end. The front end provides an interactive chat interface, allowing users to engage in real-time conversations and upload documents to enrich the knowledge base. The back end powers the application by handling essential data processing tasks, including document indexing in a vector database, querying the database for relevant information, and generating context-aware responses using an LLM.
 
 ### The RAG chat application architecture:
 
@@ -63,3 +63,6 @@ This RAG Chatbot Application features a user-friendly front end and a Large Lang
     ```
     docker-compose up --build
     ```
+
+#### Remarks:
+This project was conducted as a learning exercise to build an RAG chat application. Feel free to create an issue if you find any problems or feedback (both positive and negative). Thank you for checking this repository out.
