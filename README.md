@@ -2,7 +2,7 @@
 ## RAG Chat Application for Document Knowledge Querying
 #### An interactive RAG application chatbot where users can upload documents, and query from them to get context and extract knowledge.
 
-This  RAG chatbot application has a front end and a back end. The front end has an interactive chat interface where users can chat and upload documents to the knowledge base. The back end handles all the data processing, including document indexing in vector db, querying the database, and generating context-aware reply responses using LLM.
+This RAG Chatbot Application features a user-friendly front end and a Large Language Model (LLM) powered back end. The front end provides an interactive chat interface, allowing users to engage in real-time conversations and upload documents to enrich the knowledge base. The back end powers the application by handling essential data processing tasks, including document indexing in a vector database, querying the database for relevant information, and generating context-aware responses using a LLM.
 
 ### The RAG chat application architecture:
 
@@ -10,37 +10,59 @@ This  RAG chatbot application has a front end and a back end. The front end has 
 
 ### RAG chat application workflow:
 
-1. Input documents and preprocessing: 
-- This step includes parsing, cleaning, and chunking or splitting documents into smaller, manageable chunks.
-- The chunks should be meaningful, not splitting across important boundaries.
-- Then metadata addition such as titles and tags to those chunks to provide context.
+1. Input Documents and Preprocessing
+- Parse, clean, and split documents into smaller, meaningful chunks, ensuring no important boundaries are disrupted.
+- Add metadata (e.g., titles, tags) to the chunks to provide contextual information.
 
-2. Creating a Knowledge base:
-- Use a pre-trained text embedding model (open source) to convert each chunk into embeddings.
-- The store these embeddings with their corresponding metadata and original text in a vector database (Chromadb)
+2. Creating the Knowledge Base
+- Use an open-source pre-trained text embedding model to convert each document chunk into embeddings.
+- Store these embeddings, along with their metadata and original text, in a vector database (e.g., ChromaDB).
 
-3. Querying the Knowledge Base:
-- Input Query: A user submits a natural language query that needs context or answers in the chatbot
-- Create a set of keywords using LLM that is relevant to the query that carries the same semantics for a better similarity search
-- Query Embedding: Convert the user's query into a semantic embedding using the same text embedding model used for the documents.
-- Keyword Embeddings: Convert generated helper keywords also into semantic embeddings
+3. Querying the Knowledge Base
+- User Query: The user submits a natural language query.
+- Keyword Generation: Generate semantic keywords from the query using an LLM for improved similarity search.
+- Embedding Creation: Convert both the query and generated keywords into embeddings using the same embedding model used for the documents.
 
-4. Similarity Search:
-Use the query embeddings to search the vector database for the most semantically similar document chunks. The database retrieves the top-N chunks based on cosine similarity or other distance metrics.
+4. Similarity Search
+- Perform a similarity search in the vector database using query embeddings.
+- Retrieve the top-N most relevant document chunks based on cosine similarity or other metrics.
 
 5. Generating Context-Aware Responses
-Combine Context: The retrieved document chunks (context) are combined with the user query, which forms the input for the language model.
-- LLM Generation: Pass the combined input to a pre-trained LLM. The LLM generates a response incorporating the retrieved context to provide more accurate and relevant answers.
-- Maintain a conversation history to memorize that earlier chat context.
+- Combine Context: Merge the retrieved document chunks with the user query to form the input for the LLM.
+- LLM Response: Generate a contextually accurate response using a pre-trained LLM.
+- Maintain a conversation history to provide continuity across the dialogue.
 
-6. Reply to the user
-- The generated natural language response is sent to the user as a reply in the chatbot.
+6. Reply to the User
+-Send the LLM-generated response back to the user as a natural language reply in the chat interface.
 
 ### Technologies Used
-TODO
+- Data Preprocessing: Spacy, Sentence Transformers, BERTopic and KeyBERT
+- LLM: Llama 3.2 3b-instruct via OpenRouter API (Free)
+- Vector DB: Chromadb
+- Chat Interface: JavaScript and HTML
+- Application: FastAPI
+- Deployment: Docker
 
 ### How to Use
-TODO
+#### Run Locally
+1. Install dependencies (in the `backend` dir):
+   ```bash
+   pip install -r requirements.txt
+   ```
+2. Run the application:
+- Backend (change to `backend` dir)
+   ```bash
+   uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+   ```
+- Frontend (change to `frontend/src` dir)
+    ```
+    python -m http.server 8080
+    ```
+#### Run with Docker
+- Both frontend and backend Docker containers are orchestrated by Docker compose file (Docker should be installed)
+    ```
+    docker-compose up --build
+    ```
 
 ### Chat application interface
 TODO
