@@ -59,10 +59,7 @@ This RAG Chatbot Application features a user-friendly front end and a Large Lang
     python -m http.server 8080
     ```
 #### Run with Docker
-- Both frontend and backend Docker containers are orchestrated by Docker compose file (Docker should be installed)
+- Docker compose file orchestrates both frontend and backend Docker containers (Docker should be installed)
     ```
     docker-compose up --build
     ```
-
-### Chat application interface
-TODO
