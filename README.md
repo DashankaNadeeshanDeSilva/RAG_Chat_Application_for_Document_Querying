@@ -12,7 +12,7 @@ This RAG Chatbot Application features a user-friendly front end and a Large Lang
 
 1. Input Documents and Preprocessing
 - Parse, clean, and split documents into smaller, meaningful chunks, ensuring no important boundaries are disrupted.
-- Add metadata (e.g., titles, tags) to the chunks to provide contextual information.
+- Add metadata: titles (topic modelling), and keywords to the chunks to provide contextual information.
 
 2. Creating the Knowledge Base
 - Use an open-source pre-trained text embedding model to convert each document chunk into embeddings.
