@@ -33,7 +33,7 @@ This RAG Chatbot Application features a user-friendly front end and a Large Lang
 - Maintain a conversation history to provide continuity across the dialogue.
 
 6. Reply to the User
--Send the LLM-generated response back to the user as a natural language reply in the chat interface.
+- Send the LLM-generated response back to the user as a natural language reply in the chat interface.
 
 ### Technologies Used
 - Data Preprocessing: Spacy, Sentence Transformers, BERTopic and KeyBERT
@@ -63,6 +63,12 @@ This RAG Chatbot Application features a user-friendly front end and a Large Lang
     ```
     docker-compose up --build
     ```
+
+#### Potential Use Cases:
+- Academic research assistants.
+- Legal document review and querying.
+- Customer support knowledge bases.
+- Enterprise document search tools.
 
 #### Remarks:
 This project was conducted as a learning exercise to build an RAG chat application. Feel free to create an issue if you find any problems or feedback (both positive and negative). Thank you for checking this repository out.
