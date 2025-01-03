@@ -11,7 +11,7 @@ services:
       dockerfile: Dockerfile # use the Dockerfile in the backend dir to create the docker image
     container_name: rag-backend # gives container name
     ports:
-      - "8000:8000"  # Map backend localhost (host computer) port 8000 to port 8000 in the container (where app is running)
+      - "80:8000"  # Map backend localhost/cloud port 80 to port 8000 in the container (where app is running)
     volumes:
       - ./backend/app:/backend/app # Mount 'backend/app' dir from the host-machine to /RAG_app/app dir in the container for live updates
       - ./uploads:/backend/uploads  # Maps root dir 'uploads' folder to 'RAG_app/uploads' inside the container

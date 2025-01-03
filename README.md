@@ -94,10 +94,11 @@ instance.
    scp -i "your-key.pem" -r <RAG application repo> ubuntu@<EC2-Public-IP>:/home/ubuntu/
    ```
 
-8. Navigate to project dir and run the application by running the Docker Compose file.
+8. Navigate into project dir and run the application by running the Docker Compose file.
     ```
     docker-compose up --build
     ```
+   The RAG application is now running in the EC2 instance as a Docker container. Access it via `http://<EC2-Public-IP>:80`
 
 
 ## Potential Use Cases:
