@@ -20,7 +20,7 @@ This RAG Chatbot Application features a user-friendly front end and a Large Lang
 
 3. Querying the Knowledge Base
 - User Query: The user submits a natural language query.
-- Keyword Generation: Generate semantic keywords from the query using an LLM for improved similarity search.
+- Keyword Generation: Generate semantic keywords from the query using an LLM for improved similarity search (Additional task compared to conventional RAG workflow).
 - Embedding Creation: Convert both the query and generated keywords into embeddings using the same embedding model used for the documents.
 
 4. Similarity Search
@@ -32,7 +32,7 @@ This RAG Chatbot Application features a user-friendly front end and a Large Lang
 - LLM Response: Generate a contextually accurate response using a pre-trained LLM.
 - Maintain a conversation history to provide continuity across the dialogue.
 
-6. Reply to the User
+6. Reply the User in the chat
 - Send the LLM-generated response back to the user as a natural language reply in the chat interface.
 
 ## Technologies Used
