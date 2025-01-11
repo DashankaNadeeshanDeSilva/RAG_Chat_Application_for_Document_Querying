@@ -6,7 +6,7 @@ This RAG Chatbot Application features a user-friendly front end and a Large Lang
 
 ## The RAG chat application architecture:
 
-![RAG_architecture.jpg](images/RAG_architecture.jpg)
+![RAG_architecture.jpg](resources/RAG_architecture.jpg)
 
 ## RAG chat application workflow:
 
